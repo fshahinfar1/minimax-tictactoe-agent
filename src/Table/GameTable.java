@@ -9,4 +9,5 @@ public interface GameTable {
     boolean isDraw();
     Mark[][] getTable();
     int getWidth();
+    boolean isValidMove(Move move);
 }

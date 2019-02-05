@@ -145,7 +145,7 @@ public class TicTacToeTable implements GameTable {
         matched = Mark.Empty;
         for (int i = 1; i < width; i++) {
             for (int j = 0; j < width; j++) {
-                if (i + j > width)
+                if (i + j >= width)
                     break;
                 Mark crt = table[i + j][width - j - 1];
                 if (crt == Mark.Empty) {
@@ -194,5 +194,11 @@ public class TicTacToeTable implements GameTable {
         TicTacToeTable t = new TicTacToeTable(w, g);
         t.setTable(table.getTable());
         return t;
+    }
+
+    public boolean isValidMove(Move move) {
+        int row = move.getRow();
+        int col = move.getCol();
+        return  table[row][col] == Mark.Empty;
     }
 }
