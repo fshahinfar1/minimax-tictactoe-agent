@@ -40,100 +40,127 @@ public class TicTacToeTable implements GameTable {
         emptyCells--;
     }
 
-    public Mark hasWinner(Move move) {
-        int row = move.getRow();
-        int col = move.getCol();
-
+    public Mark hasWinner() {
+        // row
         int count = 0;
-        Mark m = Mark.Empty;
-
-        // check for column match
+        Mark matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
-            Mark current = table[row][i];
-            if (current == Mark.Empty) {
-                count = 0;
-                m = current;
-            } else if (current == m) {
-                count++;
-                if (count == matchGoal)
-                    return m;
-
-            } else {
-                count = 1;
-                m = current;
+            for (int j = 0; j < width; j++) {
+                Mark crt = table[i][j];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
             }
         }
-
-        // check for row match
+        // column
         count = 0;
-        m = Mark.Empty;
+        matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
-            Mark current = table[i][col];
-            if (current == Mark.Empty) {
-                count = 0;
-                m = current;
-            } else if (current == m) {
-                count++;
-                if (count == matchGoal)
-                    return m;
-            } else {
-                count = 1;
-                m = current;
+            for (int j = 0; j < width; j++) {
+                Mark crt = table[j][i];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
             }
         }
-
-        // check for diagonal match
+        // diagonal
         count = 0;
-        m = Mark.Empty;
-        int cRow = row - col;
-        int cCol = 0;
-        if (cRow < 0) {
-            cCol = -cRow;
-            cRow = 0;
-        }
-        while (cRow < width && cCol < width) {
-            Mark currnet = table[cRow][cCol];
-            if (currnet == Mark.Empty) {
-                count = 0;
-                m = currnet;
-            } else if (currnet == m) {
-                count++;
-                if (count == matchGoal)
-                    return m;
-            } else {
-                count = 1;
-                m = currnet;
+        matched = Mark.Empty;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i + j >= width)
+                    break;
+                Mark crt = table[j][j + i];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
             }
-            cRow++;
-            cCol++;
         }
-
-        // check for back diagonal match
         count = 0;
-        m = Mark.Empty;
-        cRow = row + col;
-        cCol = 0;
-        if (cRow > width) {
-            cCol = cRow - width;
-            cRow = width - 1;
-        }
-        while (cRow > 0 && cCol < width) {
-            Mark currnet = table[cRow][cCol];
-            if (currnet == Mark.Empty) {
-                count = 0;
-                m = currnet;
-            } else if (currnet == m) {
-                count++;
-                if (count == matchGoal)
-                    return m;
-            } else {
-                count = 1;
-                m = currnet;
+        matched = Mark.Empty;
+        for (int i = 1; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i + j >= width)
+                    break;
+                Mark crt = table[j + i][j];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
             }
-            cRow--;
-            cCol++;
         }
-
+        // back diagonal
+        count = 0;
+        matched = Mark.Empty;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i - j < 0)
+                    break;
+                Mark crt = table[j][i - j];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
+            }
+        }
+        count = 0;
+        matched = Mark.Empty;
+        for (int i = 1; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i + j > width)
+                    break;
+                Mark crt = table[i + j][width - j - 1];
+                if (crt == Mark.Empty) {
+                    count = 0;
+                    matched = Mark.Empty;
+                } else if (crt == matched) {
+                    count++;
+                    if (count == matchGoal)
+                        return matched;
+                } else {
+                    matched = crt;
+                    count = 1;
+                }
+            }
+        }
         return Mark.Empty;
     }
 
@@ -147,5 +174,25 @@ public class TicTacToeTable implements GameTable {
             System.arraycopy(table[i], 0, tmpTable[i], 0, width);
         }
         return tmpTable;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getMatchGoal() {
+        return matchGoal;
+    }
+
+    private void setTable(Mark[][] table) {
+        this.table = table;
+    }
+
+    public static TicTacToeTable from (TicTacToeTable table) {
+        int w = table.getWidth();
+        int g = table.getMatchGoal();
+        TicTacToeTable t = new TicTacToeTable(w, g);
+        t.setTable(table.getTable());
+        return t;
     }
 }

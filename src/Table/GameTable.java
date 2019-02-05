@@ -5,7 +5,8 @@ import Rules.Move;
 
 public interface GameTable {
     void set (Move move);
-    Mark hasWinner(Move move);
+    Mark hasWinner();
     boolean isDraw();
     Mark[][] getTable();
+    int getWidth();
 }
