@@ -51,24 +51,28 @@ public class AiPlayer implements Player {
 
         if (maximum) {
             int value = -Integer.MAX_VALUE;
+            Move chosenMove = null;
             for (State st: states) {
                 int stateVal = miniMax(st.table, false);
                 if (stateVal > value) {
                     value = stateVal;
-                    chosen = st.move;
+                    chosenMove = st.move;
                 }
             }
+            chosen = chosenMove;
             return value;
 
         } else {
             int value = Integer.MAX_VALUE;
+            Move chosenMove = null;
             for (State st: states) {
                 int stateVal = miniMax(st.table, true);
                 if (stateVal < value) {
                     value = stateVal;
-                    chosen = st.move;
+                    chosenMove = st.move;
                 }
             }
+            chosen = chosenMove;
             return  value;
         }
     }
