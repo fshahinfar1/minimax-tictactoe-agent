@@ -45,6 +45,8 @@ public class TicTacToeTable implements GameTable {
         int count = 0;
         Mark matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 Mark crt = table[i][j];
                 if (crt == Mark.Empty) {
@@ -64,6 +66,8 @@ public class TicTacToeTable implements GameTable {
         count = 0;
         matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 Mark crt = table[j][i];
                 if (crt == Mark.Empty) {
@@ -83,6 +87,8 @@ public class TicTacToeTable implements GameTable {
         count = 0;
         matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 if (i + j >= width)
                     break;
@@ -103,6 +109,8 @@ public class TicTacToeTable implements GameTable {
         count = 0;
         matched = Mark.Empty;
         for (int i = 1; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 if (i + j >= width)
                     break;
@@ -124,6 +132,8 @@ public class TicTacToeTable implements GameTable {
         count = 0;
         matched = Mark.Empty;
         for (int i = 0; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 if (i - j < 0)
                     break;
@@ -144,6 +154,8 @@ public class TicTacToeTable implements GameTable {
         count = 0;
         matched = Mark.Empty;
         for (int i = 1; i < width; i++) {
+            count = 0;
+            matched = Mark.Empty;
             for (int j = 0; j < width; j++) {
                 if (i + j >= width)
                     break;
