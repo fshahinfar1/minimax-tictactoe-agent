@@ -23,6 +23,7 @@ public class AiPlayer implements Player {
     @Override
     public Move play(GameTable table) {
         int value = miniMax(table, true);
+        System.out.println("ai value: " + value);
         return chosen;
     }
 
@@ -94,7 +95,7 @@ public class AiPlayer implements Player {
     }
 
     private List<State> nextStates(TicTacToeTable table, Mark m) {
-        List<Move> moves = getMoves(table, mark);
+        List<Move> moves = getMoves(table, m);
 
         List<State> states = new ArrayList<State>();
         for (Move move: moves) {
