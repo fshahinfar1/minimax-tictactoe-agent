@@ -1,6 +1,7 @@
 package Player;
 import Rules.Move;
+import Table.GameTable;
 
 public interface Player {
-    public Move play(Table table);
+    public Move play(GameTable table);
 }
